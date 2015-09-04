@@ -1,0 +1,26 @@
+{
+  "name": "jquery-trend",
+  "title": "jQuery Trend",
+  "description": "jQuery plugin for fail-safe transition-end events.",
+  "version": "0.2.0",
+  "main": "jquery.trend.js",
+  "homepage": "http://pixelunion.net",
+  "author": {
+    "name": "Pixel Union",
+    "url": "https://www.pixelunion.net/about"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixelunion/jquery.trend.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "transition-end"
+  ],
+  "bugs": {
+    "url": "https://github.com/pixelunion/jquery.trend/issues"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

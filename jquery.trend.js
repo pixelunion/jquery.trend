@@ -1,5 +1,5 @@
 /*!
- * Trend 0.1.0
+ * Trend 0.2.0
  *
  * Fail-safe TransitionEnd event for jQuery.
  *
@@ -31,8 +31,18 @@
     "-khtml-transition-duration"
   ];
 
-  // Parses a CSS duration value into milliseconds.
-  var parseDuration = function(s) {
+  // Prefixed transition delay property names
+  var transitionDelayProperties = [
+    "transition-delay",
+    "-moz-transition-delay",
+    "-webkit-transition-delay",
+    "-ms-transition-delay",
+    "-o-transition-delay",
+    "-khtml-transition-delay"
+  ];
+
+  // Parses a CSS time value into milliseconds.
+  var parseTime = function(s) {
     s = s.replace(/\s/, "");
     var v = window.parseFloat(s);
 
@@ -41,14 +51,14 @@
       : v;
   };
 
-  // Get the transition duration for an element, as specified by CSS.
+  // Parses the longest time unit found in a series of CSS properties.
   // Returns a value in milliseconds.
-  var getTransitionDuration = function(el) {
+  var parseProperties = function(el, properties) {
     var duration = 0;
 
-    for (var i = 0; i < transitionDurationProperties.length; i++) {
+    for (var i = 0; i < properties.length; i++) {
       // Get raw CSS value
-      var value = el.css(transitionDurationProperties[i]);
+      var value = el.css(properties[i]);
       if (!value) continue;
 
       // Multiple transitions--pick the longest
@@ -57,7 +67,7 @@
         var durations = (function(){
           var results = [];
           for (var i = 0; i < values.length; i++) {
-            var duration = parseDuration(values[i]);
+            var duration = parseTime(values[i]);
             results.push(duration);
           }
           return results;
@@ -68,7 +78,7 @@
 
       // Single transition
       else {
-        duration = parseDuration(value);
+        duration = parseTime(value);
       }
 
       // Accept first vaue
@@ -92,7 +102,10 @@
 
       // Calculate a fallback duration. + 20 because some browsers fire
       // timeouts faster than transitionend.
-      var duration = getTransitionDuration(el) + 20;
+      var time =
+        parseProperties(el, transitionDurationProperties) +
+        parseProperties(el, transitionDelayProperties) +
+        20;
 
       var cb = function(e) {
         // transitionend events can be sent for each property. Let's just
@@ -113,7 +126,7 @@
       };
 
       el.one(transitionEndEvents, cb);
-      el.data("trend-timeout", window.setTimeout(cb, duration));
+      el.data("trend-timeout", window.setTimeout(cb, time));
     },
 
     remove: function(handleObj) {
