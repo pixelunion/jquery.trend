@@ -1,8 +1,8 @@
 {
-  "name": "jquery-trend",
+  "name": "@pixelunion/jquery-trend",
   "title": "jQuery Trend",
   "description": "jQuery plugin for fail-safe transition-end events.",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "main": "jquery.trend.js",
   "homepage": "http://pixelunion.net",
   "author": {
