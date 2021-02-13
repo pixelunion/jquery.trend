@@ -1,5 +1,5 @@
 /*!
- * Trend 0.2.0
+ * Trend 1.0.0
  *
  * Fail-safe TransitionEnd event for jQuery.
  *
@@ -8,7 +8,7 @@
  *
  * NOTE: Only supports being bound with "jQuery.one".
  *
- * Copyright 2014, Pixel Union - http://pixelunion.net
+ * Copyright 2021, Pixel Union - http://pixelunion.net
  * Released under the MIT license
  */
 ;(function($){
